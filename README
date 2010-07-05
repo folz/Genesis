@@ -1,0 +1,4 @@
+To get the demo working:
+1) Run StoneServer.py
+2) Change the IP addresses in Client.py to match the server address
+3) Run WeatheredStone.py
