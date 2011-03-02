@@ -28,7 +28,7 @@ class BulletManager:
 			self.lastshot = nowshot
 			b = BulletEntity( location, velocity, facing )
 			self.bullets.append( b )
-			b.setWorldCallback( self.entity.world )
+			b.set_world_callback( self.entity.world )
 			b.setBulletManagerCallback( self )
 
 	def removeBullet( self, bullet ):
@@ -83,7 +83,7 @@ class NetworkBulletManager:
 	def addBullet( self, location ):
 		b = BulletEntity( location, ( 0, 0 ), "right" )
 		self.bullets.append( b )
-		b.setWorldCallback( self.world )
+		b.set_world_callback( self.world )
 		b.setBulletManagerCallback( self )
 		b.draw()
 

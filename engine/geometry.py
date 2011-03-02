@@ -33,6 +33,7 @@ class Vector:
 		return Vector( self.x * scalar, self.y * scalar )
 
 	__rmul__ = __mul__
+	
 	def __div__( self, scalar ):
 		return 1.0 / scalar * self
 
@@ -158,7 +159,7 @@ class Polygon:
 				self.isAbove = False
 			else:
 				self.isAbove = None
-			if math.fabs( mtd.x ) < 25: self.updatePos( mtd )
+			if math.fabs( mtd.x ) < 25: self.update_pos( mtd )
 			return mtd
 		return False
 
@@ -170,7 +171,7 @@ class Polygon:
 			temp.append( p )
 		self.realPoints = temp
 
-	def updatePos( self, mtd ):
+	def update_pos( self, mtd ):
 		self.pos += mtd
 		temp = []
 		for p in self.realPoints:
@@ -231,7 +232,7 @@ class Slope( Line ):
 	def debug( self ):
 		pygame.draw.line( self.world, ( 255, 255, 255 ), self.realPoints[0], self.realPoints[1] )
 
-	def setWorldCallback( self, world ):
+	def set_world_callback( self, world ):
 		self.world = world
 
 class Terrain( Polygon ):
@@ -247,12 +248,11 @@ class Terrain( Polygon ):
 		self.height = abs( points[0][1] - points[2][1] )
 
 	def debug( self ):
-		if not self.isOnScreen(): return
+		if not self.is_on_screen(): return
 		pygame.draw.polygon( self.world, ( 255, 255, 255 ), self.realPoints )
 
-	def setWorldCallback( self, world ):
+	def set_world_callback( self, world ):
 		self.world = world
 
-	def isOnScreen( self ):
-		return self.location.x + self.width >= self.world.viewport.getXCoord() and self.location.x <= self.world.viewport.getXCoord() + self.world.getWidth() and self.location.y + self.height >= self.world.viewport.getYCoord() and self.location.y <= self.world.viewport.getYCoord() + self.world.getHeight()
-
+	def is_on_screen( self ):
+		return self.location.x + self.width >= self.world.viewport.get_x_coord() and self.location.x <= self.world.viewport.get_x_coord() + self.world.get_width() and self.location.y + self.height >= self.world.viewport.get_y_coord() and self.location.y <= self.world.viewport.get_y_coord() + self.world.get_height()

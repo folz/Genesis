@@ -28,14 +28,14 @@ class BulletEntity( entity.Entity ):
 			self.image = pygame.transform.flip( self.image, True, False )
 		self.used = False
 		self.sent = False
-		self.rect = pygame.Rect( self.location.x, self.location.y, self.getWidth(), self.getHeight() )
+		self.rect = pygame.Rect( self.location.x, self.location.y, self.get_width(), self.get_height() )
 
 	def setBulletManagerCallback( self, bulletmanager ):
 		self.bulletmanager = bulletmanager
 
 	def networkBullet( self ):
-		p2 = self.world.getPlayer2()
-		self.boundingPoly = geometry.Rect( self.location.x, self.location.y, self.getWidth(), self.getHeight() )
+		p2 = self.world.get_player2()
+		self.boundingPoly = geometry.Rect( self.location.x, self.location.y, self.get_width(), self.get_height() )
 		mtd = p2.boundingPoly.collide( self.boundingPoly )
 		if mtd != False:
 			p2.takeHit()
@@ -65,17 +65,17 @@ class BulletEntity( entity.Entity ):
 		self.location.x += self.velocity.x #* (PIXELSPERVECTOR / delta)
 		self.location.y += self.velocity.y #* (PIXELSPERVECTOR / delta)
 
-		self.rect = pygame.Rect( self.location.x, self.location.y, self.getWidth(), self.getHeight() )
+		self.rect = pygame.Rect( self.location.x, self.location.y, self.get_width(), self.get_height() )
 
-		if self.location.x < 0 or self.location.x > self.world.getWidth() or self.location.y < 0 or self.location.y > self.world.getHeight():
+		if self.location.x < 0 or self.location.x > self.world.get_width() or self.location.y < 0 or self.location.y > self.world.get_height():
 			self.bulletmanager.bullets.remove( self )
 
 		self.checkCollisions()
 
 	def checkCollisions( self ):
 		if not self.used:
-			self.boundingPoly = geometry.Rect( self.location.x, self.location.y, self.getWidth(), self.getHeight() )
-			for terrain in self.world.getTerrain():
+			self.boundingPoly = geometry.Rect( self.location.x, self.location.y, self.get_width(), self.get_height() )
+			for terrain in self.world.get_terrain():
 				mtd = self.boundingPoly.collide( terrain )
 				if mtd != False:
 					self.used = True
@@ -129,7 +129,7 @@ class FlagEntity( entity.Entity ):
 		self.score = score
 
 	def checkCollisions( self ):
-		self.boundingPoly = geometry.Rect( self.location.x, self.location.y, self.getWidth(), self.getHeight() )
+		self.boundingPoly = geometry.Rect( self.location.x, self.location.y, self.get_width(), self.get_height() )
 		if not self.captured:
 			for player in self.world.players:
 				if player.team != self.team:
@@ -148,10 +148,10 @@ class FlagEntity( entity.Entity ):
 
 		else:
 			if self.capturer.facing == "left":
-				self.location.x = self.capturer.location.x + self.capturer.getWidth() / 2
+				self.location.x = self.capturer.location.x + self.capturer.get_width() / 2
 				self.location.y = self.capturer.location.y
 			elif self.capturer.facing == "right":
-				self.location.x = self.capturer.location.x - self.capturer.getWidth() / 2
+				self.location.x = self.capturer.location.x - self.capturer.get_width() / 2
 				self.location.y = self.capturer.location.y
 
 		self.rect = pygame.Rect( self.boundingPoly.realPoints[0][0], self.boundingPoly.realPoints[0][1], self.boundingPoly.width, self.boundingPoly.height )
@@ -246,11 +246,11 @@ class PlayerEntity( entity.Entity ):
 		offset = 0
 		if self.facing == "left":
 			xvel = -20 + self.velocity.x * .2
-			offset = -self.getWidth() - 1
+			offset = -self.get_width() - 1
 		elif self.facing == "right":
 			xvel = 20 + self.velocity.x * .2
-			offset = self.getWidth() + 1
-		self.gun.addBullet( ( self.location.x + offset, self.location.y + self.getHeight() / 2 ), ( xvel, 0 ), self.facing ) # TODO get velocity based on user mouse position
+			offset = self.get_width() + 1
+		self.gun.addBullet( ( self.location.x + offset, self.location.y + self.get_height() / 2 ), ( xvel, 0 ), self.facing ) # TODO get velocity based on user mouse position
 
 	def move( self, delta ):
 		if not self.active == 200:
@@ -281,8 +281,8 @@ class PlayerEntity( entity.Entity ):
 
 	def checkCollisions( self ):
 		if not self.active == 200: return
-		self.boundingPoly = geometry.Rect( self.location.x, self.location.y, self.getWidth(), self.getHeight() )
-		for terrain in self.world.getTerrain():
+		self.boundingPoly = geometry.Rect( self.location.x, self.location.y, self.get_width(), self.get_height() )
+		for terrain in self.world.get_terrain():
 			mtd = self.boundingPoly.collide( terrain )
 
 			if mtd != False: # if we're colliding with the terrain

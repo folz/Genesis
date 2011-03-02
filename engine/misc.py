@@ -9,7 +9,7 @@ miscellaneous functions and constants that save me time
 import pygame
 import os.path
 
-PIXELSPERVECTOR = 100
+PIXELS_PER_VECTOR = 100
 
 def load_image( name ):
 	'''
@@ -40,4 +40,3 @@ def load_sound( name ):
 		print( "Cannot load sound %s" % name )
 		raise SystemExit( message )
 	return sound
-

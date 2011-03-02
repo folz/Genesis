@@ -21,46 +21,46 @@ class GameWindow:
 
 	### -------- get/set methods -------- ###
 
-	def getWidth( self ):
+	def get_width( self ):
 		return self.width
 
-	def setWidth( self, width ):
+	def set_width( self, width ):
 		self.width = width
 		self.size = ( self.width, self.height )
 		self.recreate()
 
-	def getHeight( self ):
+	def get_height( self ):
 		return self.height
 
-	def setHeight( self, height ):
+	def set_height( self, height ):
 		self.height = height
 		self.size = ( self.width, self.height )
 		self.recreate()
 
-	def getSize( self ):
+	def get_size( self ):
 		return self.size
 
-	def setSize( self, size ):
+	def set_size( self, size ):
 		self.size = size
 		self.width, self.height = self.size
 		self.recreate()
 
-	def getFlags( self ):
+	def get_flags( self ):
 		return self.flags
 
-	def setFlags( self, flags ):
+	def set_flags( self, flags ):
 		self.flags = flags
 		self.recreate()
 
-	def getTitle( self ):
+	def get_title( self ):
 		return self.screen.get_caption()
 
-	def setTitle( self, title ):
+	def set_title( self, title ):
 		self.title = title
 
 	### -------- methods that actually do things -------- ###
 
-	def worldCallback( self, callback ):
+	def set_world_callback( self, callback ):
 		self.callback = callback
 
 	def recreate( self ):
@@ -79,4 +79,3 @@ class GameWindow:
 			self.visible = True
 		else:
 			pass
-

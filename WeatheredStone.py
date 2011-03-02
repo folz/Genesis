@@ -47,8 +47,8 @@ SIZE = WIDTH, HEIGHT = 640, 480
 
 # create the window and display it
 window = gamewindow.GameWindow( SIZE )
-window.setTitle( "Weathered Stone" )
-window.setFlags( pygame.HWSURFACE | pygame.DOUBLEBUF )# | pygame.FULLSCREEN)
+window.set_title( "Weathered Stone" )
+window.set_flags( pygame.HWSURFACE | pygame.DOUBLEBUF )# | pygame.FULLSCREEN)
 window.display()
 
 pygame.font.init()
@@ -74,8 +74,8 @@ keys = {pygame.K_ESCAPE : False, pygame.K_LEFT : False, pygame.K_RIGHT : False, 
 # create the world we'll be rendering entities on
 #world = World((len(tileData[0]) * tileWidth, len(tileData) * tileHeight))
 world = world.World( ( 2000, 2000 ) )
-world.setBackground( "giantbg.png" )
-world.setGravity( geometry.Vector( 0, 1 ) )
+world.set_background( "giantbg.png" )
+world.set_gravity( geometry.Vector( 0, 1 ) )
 world.debug = True
 
 global networkBullets
@@ -85,23 +85,23 @@ networkBullets = managers.NetworkBulletManager( world )
 def createBlock( x, y, w, h ):
 
 	p = geometry.Terrain( [( x, y ), ( x + w, y ), ( x + w, y + h ), ( x, y + h )], world )
-	world.addTerrain( p )
+	world.add_terrain( p )
 
 def makeTerrain():
 	leftWall = geometry.Slope( [( 0, 0 ), ( 0, 2000 )] )
-	world.addTerrain( leftWall )
+	world.add_terrain( leftWall )
 	rightWall = geometry.Slope( [( 2000, 0 ), ( 2000, 2000 )] )
-	world.addTerrain( rightWall )
+	world.add_terrain( rightWall )
 	topWall = geometry.Slope( [( 0, 0 ), ( 2000, 0 )] )
-	world.addTerrain( topWall )
+	world.add_terrain( topWall )
 	bottomWall = createBlock( 0, 2000, 2000, 50 )
-	#world.addTerrain(bottomWall)
+	#world.add_terrain(bottomWall)
 
 	#top level
 	p = geometry.Terrain( [( 1350, 350 ), ( 1500, 350 ), ( 1500, 250 )], world )
-	world.addTerrain( p )
+	world.add_terrain( p )
 	p = geometry.Terrain( [( 700, 200 ), ( 1050, 350 ), ( 1050, 400 ), ( 700, 250 )], world )
-	world.addTerrain( p )
+	world.add_terrain( p )
 
 	createBlock( 1700, 1900, 100, 100 )
 	createBlock( 1900, 1800, 100, 100 )
@@ -194,13 +194,13 @@ viewport = viewport.Viewport( window, world )
 # create a player character
 if id == 1: player = entities.PlayerEntity( "blue", ( 1940, 1940 ) )
 else: player = entities.PlayerEntity( "red", ( 100, 100 ) )
-world.addEntity( player )
+world.add_entity( player )
 player.addGun( managers.BulletManager( player ) )
 
 flag = entities.FlagEntity( "red", ( 50, 175 ) )
 flag2 = entities.FlagEntity( "blue", ( 1950, 1975 ) )
-world.addEntity( flag )
-world.addEntity( flag2 )
+world.add_entity( flag )
+world.add_entity( flag2 )
 
 polygons = ()
 
@@ -233,8 +233,8 @@ def handle_events():
 
 if id == 2: player2 = entities.PlayerEntity( "blue", ( 1940, 1940 ), "green-soldier.png" )
 else: player2 = entities.PlayerEntity( "red", ( 100, 100 ), "green-soldier.png" )
-world.addEntity( player2 )
-world.setPlayer2( player2 )
+world.add_entity( player2 )
+world.set_player2( player2 )
 player2.addGun( managers.BulletManager( player2 ) )
 
 

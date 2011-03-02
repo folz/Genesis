@@ -29,62 +29,61 @@ class World( pygame.Surface, pygame.sprite.Group ):
 
 	### -------- get/set methods -------- ###
 
-	def setPlayer2( self, p2 ):
+	def set_player2( self, p2 ):
 		self.player2 = p2
 
-	def getPlayer2( self ):
+	def get_player2( self ):
 		return self.player2
 
-	def setBackground( self, background ):
+	def set_background( self, background ):
 		self.background = misc.load_image( background )
 
-	def getWidth( self ):
+	def get_width( self ):
 		return pygame.Surface.get_width( self )
 
-	def getHeight( self ):
+	def get_height( self ):
 		return pygame.Surface.get_height( self )
 
-	def setDebug( self, bool ):
+	def set_debug( self, bool ):
 		self.debug = bool
 
-	def getEntities( self ):
+	def get_entities( self ):
 		return pygame.Surface.sprites( self )
 
-	def setViewportCallback( self, viewport ):
+	def set_viewport_callback( self, viewport ):
 		self.viewport = viewport
 
-	def setWindowCallback( self, window ):
+	def set_window_callback( self, window ):
 		self.window = window
 
-	def getGravity( self ):
+	def get_gravity( self ):
 		return self.gravity
 
-	def setGravity( self, gravity ):
+	def set_gravity( self, gravity ):
 		self.gravity = gravity
 
-	def getTerrain( self ):
+	def get_terrain( self ):
 		return self.terrain
 
 	### -------- methods that do things -------- ###
 
-	def addEntity( self, object ):
+	def add_entity( self, object ):
 		pygame.sprite.Group.add( self, object )
 		if hasattr( object, "gun" ):
 			self.players.append( object )
-		object.setWorldCallback( self )
+		object.set_world_callback( self )
 
-	def addTerrain( self, object ):
+	def add_terrain( self, object ):
 		self.terrain.append( object )
-		object.setWorldCallback( self )
+		object.set_world_callback( self )
 
 	def redraw( self, delta ):
-		self.blit( self.background, ( 0, 0 ), self.viewport.getSize() )
+		self.blit( self.background, ( 0, 0 ), self.viewport.get_size() )
 		self.delta = delta
 		if self.debug:
-			for terrain in self.getTerrain():
+			for terrain in self.get_terrain():
 				terrain.debug()
 		for entity in self.sprites():
 			entity.move( delta )
-			if entity.isOnScreen():
+			if entity.is_on_screen():
 				entity.draw()
-
