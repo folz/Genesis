@@ -36,7 +36,7 @@ class Entity( pygame.sprite.Sprite ):
 
 		if image is not None:
 			self.rect = self.image.get_rect()
-		self.boundingPoly = Rect( self.rect.x, self.rect.y, self.getWidth(), self.getHeight() )
+		self.boundingPoly = geometry.Rect( self.rect.x, self.rect.y, self.getWidth(), self.getHeight() )
 
 	def __repr__( self ):
 		return "Entity %s at (%d, %d) on %s with vector %s" % ( self.image, self.location.x, self.location.y, self.world, self.velocity )

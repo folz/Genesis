@@ -39,7 +39,8 @@ def useData( data ):
 			player2.gun.addBullet( ( b[0], b[1] ), ( b[2], b[3] ) )
 		if data.hit: player.wasHit()
 
-client = multiplayer.Client( useData )
+svrip = input ( "server ip? " )
+client = multiplayer.Client( svrip, useData )
 
 # set the dimensions of the display window
 SIZE = WIDTH, HEIGHT = 640, 480

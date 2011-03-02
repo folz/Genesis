@@ -50,13 +50,12 @@ class Data:
 	def __repr__( self ):
 		return "X: " + str( self.px ) + " Y: " + str( self.py ) + " id: " + str( self.pId ) + " bullets: " + str( self.bullets )
 
-
 class Client:
-	def __init__( self, stone ):
+	def __init__( self, ip, stone ):
 		self.client = netbase.TCPClient()
 		#ip = input("The Server's IP Address: ")#[0:-1]#'137.112.104.67'#socket.gethostbyname(socket.gethostname())#'137.112.104.67'#input("IP ADDRESS: ").split('\r')[0]
 		#print((ip,9999))
-		self.ip = socket.gethostbyname( socket.gethostname() )
+		self.ip = ip
 		self.client.connect( self.ip, 9999 )
 		self.stone = stone
 		self.running = True

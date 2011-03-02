@@ -201,6 +201,7 @@ class PlayerEntity( entity.Entity ):
 		self.health = 10
 		self.active = 200
 		self.scale = 1
+		
 
 	def reset( self ):
 		self.moving = False
