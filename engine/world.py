@@ -22,18 +22,12 @@ class World( pygame.Surface, pygame.sprite.Group ):
 		self.background = pygame.Surface( size ).convert()
 		self.spritedict = {} # unused, but required for pygame.sprite.Group
 		self.gravity = 0
-		self.players = []
 		self.terrain = []
+		self.names = {}
+		self.attributes = {}
 		self.delta = 0.0
-		self.player2 = None
 
 	### -------- get/set methods -------- ###
-
-	def set_player2( self, p2 ):
-		self.player2 = p2
-
-	def get_player2( self ):
-		return self.player2
 
 	def set_background( self, background ):
 		self.background = misc.load_image( background )
@@ -48,7 +42,7 @@ class World( pygame.Surface, pygame.sprite.Group ):
 		self.debug = bool
 
 	def get_entities( self ):
-		return pygame.Surface.sprites( self )
+		return pygame.sprite.Group.sprites( self )
 
 	def set_viewport_callback( self, viewport ):
 		self.viewport = viewport
@@ -64,15 +58,33 @@ class World( pygame.Surface, pygame.sprite.Group ):
 
 	def get_terrain( self ):
 		return self.terrain
-
+	
+	def set_entity_name(self, entity, name):
+		if entity in self.get_entities():
+			self.names[name] = entity
+	
+	def get_entity_by_name(self, name):
+		return self.names[name]
+	
+	def get_entities_by_attribute(self, attribute):
+		if self.attributes[attribute] != None:
+			return self.attributes[attribute]
+		else:
+			return None
 	### -------- methods that do things -------- ###
 
-	def add_entity( self, object ):
+	def add_entity( self, object, attrs=None ):
 		pygame.sprite.Group.add( self, object )
-		if hasattr( object, "gun" ):
-			self.players.append( object )
 		object.set_world_callback( self )
-
+		if attrs != None:
+			if type(attrs) in [type("")]:
+				attrs = [attrs]
+			for attr in attrs:
+				try:
+					self.attributes[attr].append(object)
+				except:
+					self.attributes[attr] = [object]
+						
 	def add_terrain( self, object ):
 		self.terrain.append( object )
 		object.set_world_callback( self )

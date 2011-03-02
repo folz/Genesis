@@ -17,9 +17,11 @@ id = int ( input ( "id? " ) )
 player2 = None
 
 def useData( data ):
-	global player2, id#,networkBullets
-	if not player2: return
-	if data is None: return
+	global id, player2
+	if not player2:
+		return
+	if data is None:
+		return
 	if data.pId != id:
 		#print(data)
 		player2.location = geometry.Vector( data.px, data.py )
@@ -52,7 +54,7 @@ window.set_flags( pygame.HWSURFACE | pygame.DOUBLEBUF )# | pygame.FULLSCREEN)
 window.display()
 
 pygame.font.init()
-helveticaFnt = pygame.font.SysFont( "Myriad Pro", 16, True, False )
+helveticaFnt = pygame.font.SysFont( "Arial", 16, True, False )
 
 
 clock = pygame.time.Clock()
@@ -77,6 +79,7 @@ world = world.World( ( 2000, 2000 ) )
 world.set_background( "giantbg.png" )
 world.set_gravity( geometry.Vector( 0, 1 ) )
 world.debug = True
+
 
 global networkBullets
 networkBullets = managers.NetworkBulletManager( world )
@@ -192,9 +195,11 @@ def makeTerrain():
 viewport = viewport.Viewport( window, world )
 
 # create a player character
-if id == 1: player = entities.PlayerEntity( "blue", ( 1940, 1940 ) )
-else: player = entities.PlayerEntity( "red", ( 100, 100 ) )
-world.add_entity( player )
+if id == 1:
+	player = entities.PlayerEntity( "blue", ( 1940, 1940 ) )
+else:
+	player = entities.PlayerEntity( "red", ( 100, 100 ) )
+world.add_entity( player, "player" )
 player.addGun( managers.BulletManager( player ) )
 
 flag = entities.FlagEntity( "red", ( 50, 175 ) )
@@ -231,13 +236,13 @@ def handle_events():
 		elif event.type in ( pygame.KEYDOWN, pygame.KEYUP ):
 			handle_keys( event )
 
-if id == 2: player2 = entities.PlayerEntity( "blue", ( 1940, 1940 ), "green-soldier.png" )
-else: player2 = entities.PlayerEntity( "red", ( 100, 100 ), "green-soldier.png" )
-world.add_entity( player2 )
-world.set_player2( player2 )
+if id == 2:
+	player2 = entities.PlayerEntity( "blue", ( 1940, 1940 ), "green-soldier.png" )
+else:
+	player2 = entities.PlayerEntity( "red", ( 100, 100 ), "green-soldier.png" )
+world.add_entity( player2, attrs="player" )
+world.set_entity_name( player2, "player2" )
 player2.addGun( managers.BulletManager( player2 ) )
-
-
 
 def sendData():
 	global client, id, player2
@@ -297,7 +302,7 @@ makeTerrain()
 #pygame.mixer.
 
 while running:
-	global delta, networkBullets
+	#global delta, networkBullets
 	delta = clock.tick( 30 ) #FPS
 	handle_events()
 	doLogic()

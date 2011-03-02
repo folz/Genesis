@@ -34,7 +34,7 @@ class BulletEntity( entity.Entity ):
 		self.bulletmanager = bulletmanager
 
 	def networkBullet( self ):
-		p2 = self.world.get_player2()
+		p2 = self.world.get_entity_by_name("player2")
 		self.boundingPoly = geometry.Rect( self.location.x, self.location.y, self.get_width(), self.get_height() )
 		mtd = p2.boundingPoly.collide( self.boundingPoly )
 		if mtd != False:
@@ -131,7 +131,7 @@ class FlagEntity( entity.Entity ):
 	def checkCollisions( self ):
 		self.boundingPoly = geometry.Rect( self.location.x, self.location.y, self.get_width(), self.get_height() )
 		if not self.captured:
-			for player in self.world.players:
+			for player in self.world.get_entities_by_attribute("player"):
 				if player.team != self.team:
 					mtd = self.boundingPoly.collide( player.boundingPoly )
 					if mtd != False:
