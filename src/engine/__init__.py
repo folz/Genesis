@@ -1,13 +1,4 @@
-from engine.geometry import *
-from engine.nicethingstohave import *
-from engine.entity import *
-from engine.gamewindow import *
-from engine.terrain import *
-from engine.viewport import *
-from engine.world import *
-from engine.slope import *
+__all__ = [	"geometry", "misc", "entity", "gamewindow", "viewport", "world"]
 
-from BulletEntity import *
-from BulletManager import *
-from FlagEntity import *
-from PlayerEntity import *
+import pygame
+from pygame.locals import *

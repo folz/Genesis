@@ -1,1 +1,5 @@
-from engine.Net.netbase import *
+__all__ = [
+	"errors",
+	"communicate",
+	"netbase",
+]
