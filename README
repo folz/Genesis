@@ -1,4 +1,4 @@
 To get the demo working:
-1) Run StoneServer.py
-2) Change the IP addresses in Client.py to match the server address
-3) Run WeatheredStone.py
+1) Run multiplayer.py
+2) Run WeatheredStone.py
+3) Make sure you don't enter the same ID for both players
